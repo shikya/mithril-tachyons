@@ -1,3 +1,11 @@
 var root = document.getElementById("mithril");
 
-m.render(root, "Hello World");
+const table = {
+    view: () => {
+        return m("main",[
+            m("p", "Hello")
+        ]);
+    }
+};
+
+m.render(root, table);
