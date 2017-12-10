@@ -1,0 +1,25 @@
+{
+  "name": "mithril-tachyons",
+  "version": "1.0.0",
+  "description": "## TODO",
+  "main": "code.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack src/index.js bin/app.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shikya/mithril-tachyons.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shikya/mithril-tachyons/issues"
+  },
+  "homepage": "https://github.com/shikya/mithril-tachyons#readme",
+  "dependencies": {
+    "mithril": "^1.1.6",
+    "webpack": "^3.10.0"
+  }
+}
