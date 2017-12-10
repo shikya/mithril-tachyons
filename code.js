@@ -2,13 +2,15 @@ var root = document.getElementById("mithril");
 var data = [];
 
 var fetchData = () => {
-    m.request({
+    return m.request({
         method: "GET",
         url: "data.json",
     }).then( responseData => {
         data = responseData;
-        // console.log(responseData, data);
-    });
+        console.log(data);
+    }).catch( error =>{
+        console.error(error);
+    } );
 }
 
 fetchData();
@@ -18,17 +20,21 @@ const table = {
         return m("div",[
             m("table",[
                 m("tr", [
-                    m("th", { class: "bg-black-10" }, ""),
-                    m("th", { class: "ba bg-black-10"}, "Header"),
-                    m("th", { class: "ba bg-black-10"}, "Header"),
-                    m("th", { class: "ba bg-black-10"}, "Header"),
+                    m("th", { class: "ba bg-black-10" }, "id"),
+                    m("th", { class: "ba bg-black-10"}, "Name"),
+                    m("th", { class: "ba bg-black-10"}, "Gender"),
+                    m("th", { class: "ba bg-black-10"}, "Company"),
+                    m("th", { class: "ba bg-black-10"}, "Email"),
                 ]),
-                m("tr",[
-                    m("td", { class: "ba"}, "0"),
-                    m("td", { class: "ba"}, "Cell"),
-                    m("td", { class: "ba"}, "Cell"),
-                    m("td", { class: "ba"}, "Cell"),
-                ])
+                data.map( singleEntry => {
+                    return m("tr",[
+                        m("td", { class: "ba"}, singleEntry.id ),
+                        m("td", { class: "ba"}, singleEntry.name ),
+                        m("td", { class: "ba"}, singleEntry.gender),
+                        m("td", { class: "ba"}, singleEntry.company),
+                        m("td", { class: "ba"}, singleEntry.email),
+                    ])
+                })
             ])
         ]);
     }
