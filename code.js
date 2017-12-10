@@ -1,9 +1,9 @@
 var root = document.getElementById("mithril");
 var data = [];
 
-var showing = 10;
+var showing = 5;
 var rowsVisible = 15;
-var offset = 4;
+var offset = 0;
 
 var fetchData = () => {
     return m.request({
@@ -16,6 +16,11 @@ var fetchData = () => {
     } );
 }
 
+/**
+ * Bug still persist 
+ * if you change 
+ */
+
 fetchData();
 const header = {
     view: () => {
@@ -23,14 +28,15 @@ const header = {
             [
                 m("div", [
                     m("button",{ onclick: ()=>{ offset=0 }}, "|<<"),
-                    m("button",{ onclick: ()=>{ offset-=showing }}, "<<"),
+                    m("button",{ onclick: ()=>{ offset-=showing; if(offset<0) offset=0 }}, "<<"),
                     m("button",{ onclick: ()=>{ offset-- }}, "<"),
                 ]),
                 m("div", [
                     m("div", [
                         m("label", { for: "showing"}, "Showing"),
-                        m("input", { type: "number", value: showing, onchange: (event)=>{
-                            console.log(event);
+                        m("input", { type: "number", value: showing, oninput: (event)=>{
+                            showing = event.srcElement.value;
+                            console.log(event.srcElement.value);
                         }})
                     ]),
                     m("div", [
@@ -38,14 +44,25 @@ const header = {
                         m("input", { type: "number", value: rowsVisible })
                     ]),
                     m("div", [
-                        m("label", { for: "starting"}, "Showing"),
-                        m("input", { type: "number", value: offset})
+                        m("label", { for: "starting"}, "Starting"),
+                        m("input", { type: "number", value: offset, oninput: event => {
+                            var value = event.srcElement.value;
+                            if(value > 0) offset = value;
+                            console.log(offset);
+                        }})
                     ]),
                 ]),
                 m("div", [
-                    m("button", ">"),
-                    m("button", ">>"),
-                    m("button", ">>|"),
+                    m("button",{ onclick: ()=> { offset++ }}, ">"),
+                    m("button",{ onclick: ()=> { offset+=showing; if(offset>data.length) data.length - showing}}, ">>"),
+                    m("button",{ onclick: ()=> {
+                        offset=(data.length - showing)
+                    }}, ">>|"),
+                ]),
+                m("div",[
+                    m("p",{ innerText: "showing:"+ showing }),
+                    m("p",{ innerText: "rowsVisible:"+ rowsVisible }),
+                    m("p",{ innerText: "offset:"+ offset }),
                 ])
             ]
         ]);
@@ -58,6 +75,7 @@ const table = {
             m("div", header),
             m("table",[
                 m("tr", [
+                    m("th", { class: "bg-black-10" }, ""),
                     m("th", { class: "ba bg-black-10" }, "id"),
                     m("th", { class: "ba bg-black-10"}, "Name"),
                     m("th", { class: "ba bg-black-10"}, "Gender"),
@@ -69,6 +87,7 @@ const table = {
                     return dec;
                 }).map( (singleEntry, index, array) => {
                     return m("tr",[
+                        m("td", { class: "ba"}, index ),
                         m("td", { class: "ba"}, singleEntry.id ),
                         m("td", { class: "ba"}, singleEntry.name ),
                         m("td", { class: "ba"}, singleEntry.gender),
