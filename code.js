@@ -34,28 +34,26 @@ var updateOffset = (value) => {
 fetchData();
 const header = {
     view: () => {
-        return m("div", [
+        return m("div", { class: "fl w-100" },[
             [
-                m("div", { class: "fl w-third" }, [
+                m("div",{ class: "fl w-20"}, [
                     m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(0) }}, "|<<"),
                     m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(offset-=showing) }}, "<<"),
                     m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(offset-1) }}, "<"),
                 ]),
-                m("div", { class: "fl w-third" }, [
-                    m("div", [
-                        m("label", { for: "showing"}, "Showing"),
-                        m("input", { size: 2, type: "number", value: showing, oninput: (event) => {updateShowing(event.srcElement.value)}})
-                    ]),
-                    m("div", [
-                        m("label", { for: "rowsout"}, "Rows Out of"),
-                        m("input", { size: 2, type: "number", value: rowsVisible, oninput: (event) => {updateRowVisible(event.srcElement.value)} })
-                    ]),
-                    m("div", [
-                        m("label", { for: "starting"}, "Starting"),
-                        m("input", { size: 2, type: "number", value: offset, oninput: (event) => { updateOffset(event.srcElement.value)} })
-                    ]),
+                m("div", { class: "fl w-20"}, [
+                    m("label", { for: "showing"}, "Showing"),
+                    m("input", { size: 2, type: "number", value: showing, oninput: (event) => {updateShowing(event.srcElement.value)}})
                 ]),
-                m("div", { class: "fl w-third" }, [
+                m("div", { class: "fl w-20"}, [
+                    m("label", { for: "rowsout"}, "Rows Out of"),
+                    m("input", { size: 2, type: "number", value: rowsVisible, oninput: (event) => {updateRowVisible(event.srcElement.value)} })
+                ]),
+                m("div", { class: "fl w-20"}, [
+                    m("label", { for: "starting"}, "Starting"),
+                    m("input", { size: 2, type: "number", value: offset, oninput: (event) => { updateOffset(event.srcElement.value)} })
+                ]),
+                m("div",{ class: "fl w-20"}, [
                     m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(offset+1) }}, ">"),
                     m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(offset+=showing) }}, ">>"),
                     m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(data.length - showing) }}, ">>|"),
