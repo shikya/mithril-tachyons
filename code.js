@@ -28,7 +28,13 @@ var updateRowVisible = (value) => {
         rowsVisible = data.length
 };
 var updateOffset = (value) => {
-    if(value >= 0) offset = value;
+    if(value >= 0)
+        offset = value;
+    else
+        offset = 0;
+    if(value > data.length - showing) {
+        offset = data.length - showing;
+    }
 };
 
 fetchData();
