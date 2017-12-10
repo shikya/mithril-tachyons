@@ -8,4 +8,4 @@ const table = {
     }
 };
 
-m.render(root, table);
+m.mount(root, table);
