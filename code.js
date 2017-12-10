@@ -1,4 +1,17 @@
 var root = document.getElementById("mithril");
+var data = [];
+
+var fetchData = () => {
+    m.request({
+        method: "GET",
+        url: "data.json",
+    }).then( responseData => {
+        data = responseData;
+        // console.log(responseData, data);
+    });
+}
+
+fetchData();
 
 const table = {
     view: () => {
