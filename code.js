@@ -17,6 +17,12 @@ var fetchData = () => {
     } );
 }
 
+/**
+ * Intresting bug.
+ * Whenever I change showing from spinner
+ * render from table changing
+ */
+
 fetchData();
 const header = {
     view: () => {
@@ -30,7 +36,9 @@ const header = {
                 m("div", [
                     m("div", [
                         m("label", { for: "showing"}, "Showing"),
-                        m("input", { type: "number"})
+                        m("input", { type: "number", onchange: (event)=>{
+                            console.log(event);
+                        }})
                     ]),
                     m("div", [
                         m("label", { for: "rowsout"}, "Rows Out of"),
