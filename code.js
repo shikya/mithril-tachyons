@@ -1,8 +1,8 @@
 var root = document.getElementById("mithril");
 var data = [];
 
-var showing = 5;
-var rowsVisible = 100;
+var showing = 10;
+var rowsVisible = 50;
 var offset = 0;
 
 var fetchData = () => {
@@ -37,9 +37,9 @@ const header = {
         return m("div", { class: "fl w-100" },[
             [
                 m("div",{ class: "fl w-20"}, [
-                    m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(0) }}, "|<<"),
-                    m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(offset-=showing) }}, "<<"),
-                    m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(offset-1) }}, "<"),
+                    m("button",{ class: "btn br2 bg-blue white", onclick: ()=>{ updateOffset(0) }}, "|<<"),
+                    m("button",{ class: "btn br2 bg-blue white", onclick: ()=>{ updateOffset(offset-=showing) }}, "<<"),
+                    m("button",{ class: "btn br2 bg-blue white", onclick: ()=>{ updateOffset(offset-1) }}, "<"),
                 ]),
                 m("div", { class: "fl w-20"}, [
                     m("label", { for: "showing"}, "Showing"),
@@ -54,9 +54,9 @@ const header = {
                     m("input", { size: 2, type: "number", value: offset, oninput: (event) => { updateOffset(event.srcElement.value)} })
                 ]),
                 m("div",{ class: "fl w-20"}, [
-                    m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(offset+1) }}, ">"),
-                    m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(offset+=showing) }}, ">>"),
-                    m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(data.length - showing) }}, ">>|"),
+                    m("button",{ class: "btn br2 bg-blue white", onclick: ()=> { updateOffset(offset+1) }}, ">"),
+                    m("button",{ class: "btn br2 bg-blue white", onclick: ()=> { updateOffset(offset+=showing) }}, ">>"),
+                    m("button",{ class: "btn br2 bg-blue white", onclick: ()=> { updateOffset(data.length - showing) }}, ">>|"),
                 ]),
                 // m("div",[
                 //     m("p",{ innerText: "showing:"+ showing }),
