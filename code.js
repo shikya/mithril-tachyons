@@ -3,7 +3,7 @@ var data = [];
 
 var showing = 10;
 var rowsVisible = 15;
-var offset = 5;
+var offset = 4;
 
 var fetchData = () => {
     return m.request({
@@ -23,9 +23,9 @@ const header = {
         return m("div", [
             [
                 m("div", [
-                    m("button", "FP"),
-                    m("button", "PP"),
-                    m("button", "PC"),
+                    m("button",{ onclick: ()=>{ offset=0 }}, "|<<"),
+                    m("button",{ onclick: ()=>{ offset-=showing }}, "<<"),
+                    m("button",{ onclick: ()=>{ offset-- }}, "<"),
                 ]),
                 m("div", [
                     m("div", [
@@ -42,9 +42,9 @@ const header = {
                     ]),
                 ]),
                 m("div", [
-                    m("button", "LP"),
-                    m("button", "NP"),
-                    m("button", "NC"),
+                    m("button", ">"),
+                    m("button", ">>"),
+                    m("button", ">>|"),
                 ])
             ]
         ]);
@@ -63,10 +63,7 @@ const table = {
                     m("th", { class: "ba bg-black-10"}, "Company"),
                     m("th", { class: "ba bg-black-10"}, "Email"),
                 ]),
-                data.filter((singleEntry, index, array) => {
-                    console.log(offset, index, index + offset, rowsVisible, offset <= index,  (index + offset) < rowsVisible);
-                    return (offset > index && (index + offset) < rowsVisible)
-                }).map( (singleEntry, index, array) => {
+                data.splice(offset, showing).map( (singleEntry, index, array) => {
                     return m("tr",[
                         m("td", { class: "ba"}, singleEntry.id ),
                         m("td", { class: "ba"}, singleEntry.name ),
