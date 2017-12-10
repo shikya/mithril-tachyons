@@ -11,17 +11,10 @@ var fetchData = () => {
         url: "data.json",
     }).then( responseData => {
         data = responseData;
-        console.log(data);
     }).catch( error =>{
         console.error(error);
     } );
 }
-
-/**
- * Intresting bug.
- * Whenever I change showing from spinner
- * render from table changing
- */
 
 fetchData();
 const header = {
@@ -36,17 +29,17 @@ const header = {
                 m("div", [
                     m("div", [
                         m("label", { for: "showing"}, "Showing"),
-                        m("input", { type: "number", onchange: (event)=>{
+                        m("input", { type: "number", value: showing, onchange: (event)=>{
                             console.log(event);
                         }})
                     ]),
                     m("div", [
                         m("label", { for: "rowsout"}, "Rows Out of"),
-                        m("input", { type: "number"})
+                        m("input", { type: "number", value: rowsVisible })
                     ]),
                     m("div", [
                         m("label", { for: "starting"}, "Showing"),
-                        m("input", { type: "number"})
+                        m("input", { type: "number", value: offset})
                     ]),
                 ]),
                 m("div", [
@@ -71,7 +64,10 @@ const table = {
                     m("th", { class: "ba bg-black-10"}, "Company"),
                     m("th", { class: "ba bg-black-10"}, "Email"),
                 ]),
-                data.splice(offset, showing).map( (singleEntry, index, array) => {
+                data.filter((singleEntry, index, array) => {
+                    var dec = (index >= offset && index < (showing+offset))
+                    return dec;
+                }).map( (singleEntry, index, array) => {
                     return m("tr",[
                         m("td", { class: "ba"}, singleEntry.id ),
                         m("td", { class: "ba"}, singleEntry.name ),
