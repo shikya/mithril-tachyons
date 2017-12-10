@@ -1,6 +1,10 @@
 var root = document.getElementById("mithril");
 var data = [];
 
+var showing = 10;
+var rowsVisible = 15;
+var offset = 5;
+
 var fetchData = () => {
     return m.request({
         method: "GET",
@@ -59,7 +63,10 @@ const table = {
                     m("th", { class: "ba bg-black-10"}, "Company"),
                     m("th", { class: "ba bg-black-10"}, "Email"),
                 ]),
-                data.map( singleEntry => {
+                data.filter((singleEntry, index, array) => {
+                    console.log(offset, index, index + offset, rowsVisible, offset <= index,  (index + offset) < rowsVisible);
+                    return (offset > index && (index + offset) < rowsVisible)
+                }).map( (singleEntry, index, array) => {
                     return m("tr",[
                         m("td", { class: "ba"}, singleEntry.id ),
                         m("td", { class: "ba"}, singleEntry.name ),
