@@ -1,3 +1,3 @@
-var root = document.body
+var root = document.getElementById("mithril");
 
 m.render(root, "Hello World");
