@@ -16,10 +16,20 @@ var fetchData = () => {
     } );
 }
 
-/**
- * Bug still persist 
- * if you change 
- */
+var updateShowing = (value) => {
+    showing = value;
+};
+
+var updateRowVisible = (value) => {
+    rowsVisible = value;
+    if(value <= 0)
+        rowsVisible = 1;
+    if(value > data.length)
+        rowsVisible = data.length
+};
+var updateOffset = (value) => {
+    if(value >= 0) offset = value;
+};
 
 fetchData();
 const header = {
@@ -27,51 +37,36 @@ const header = {
         return m("div", [
             [
                 m("div", [
-                    m("button",{ onclick: ()=>{ offset=0 }}, "|<<"),
-                    m("button",{ onclick: ()=>{ offset-=showing; if(offset<0) offset=0 }}, "<<"),
-                    m("button",{ onclick: ()=>{ offset-- }}, "<"),
+                    m("button",{ onclick: ()=>{ updateOffset(0) }}, "|<<"),
+                    m("button",{ onclick: ()=>{ updateOffset(offset-=showing) }}, "<<"),
+                    m("button",{ onclick: ()=>{ updateOffset(offset-1) }}, "<"),
                 ]),
                 m("div", [
                     m("div", [
                         m("label", { for: "showing"}, "Showing"),
-                        m("input", { type: "number", value: showing, oninput: (event)=>{
-                            showing = event.srcElement.value;
-                            console.log(event.srcElement.value);
-                        }})
+                        m("input", { type: "number", value: showing, oninput: (event) => {updateShowing(event.srcElement.value)}})
                     ]),
                     m("div", [
                         m("label", { for: "rowsout"}, "Rows Out of"),
-                        m("input", { type: "number", value: rowsVisible, oninput: (event) =>{
-                            console.log(event.srcElement.value);
-                            var value = event.srcElement.value;
-                            rowsVisible = value;
-                            if(value <= 0)
-                                rowsVisible = 1;
-                            if(value > data.length)
-                                rowsVisible = data.length
-                        } })
+                        m("input", { type: "number", value: rowsVisible, oninput: (event) => {updateRowVisible(event.srcElement.value)} })
                     ]),
                     m("div", [
                         m("label", { for: "starting"}, "Starting"),
-                        m("input", { type: "number", value: offset, oninput: event => {
-                            var value = event.srcElement.value;
-                            if(value > 0) offset = value;
-                            console.log(offset);
-                        }})
+                        m("input", { type: "number", value: offset, oninput: (event) => { updateOffset(event.srcElement.value)} })
                     ]),
                 ]),
                 m("div", [
-                    m("button",{ onclick: ()=> { offset++ }}, ">"),
-                    m("button",{ onclick: ()=> { offset+=showing; if(offset>data.length) data.length - showing}}, ">>"),
+                    m("button",{ onclick: ()=> { updateOffset(offset+1) }}, ">"),
+                    m("button",{ onclick: ()=> { updateOffset(offset+=showing) }}, ">>"),
                     m("button",{ onclick: ()=> {
-                        offset=(data.length - showing)
+                        updateOffset(data.length - showing)
                     }}, ">>|"),
                 ]),
-                m("div",[
-                    m("p",{ innerText: "showing:"+ showing }),
-                    m("p",{ innerText: "rowsVisible:"+ rowsVisible }),
-                    m("p",{ innerText: "offset:"+ offset }),
-                ])
+                // m("div",[
+                //     m("p",{ innerText: "showing:"+ showing }),
+                //     m("p",{ innerText: "rowsVisible:"+ rowsVisible }),
+                //     m("p",{ innerText: "offset:"+ offset }),
+                // ])
             ]
         ]);
     }
