@@ -36,31 +36,29 @@ const header = {
     view: () => {
         return m("div", [
             [
-                m("div", [
-                    m("button",{ onclick: ()=>{ updateOffset(0) }}, "|<<"),
-                    m("button",{ onclick: ()=>{ updateOffset(offset-=showing) }}, "<<"),
-                    m("button",{ onclick: ()=>{ updateOffset(offset-1) }}, "<"),
+                m("div", { class: "fl w-third" }, [
+                    m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(0) }}, "|<<"),
+                    m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(offset-=showing) }}, "<<"),
+                    m("button",{ class: "btn br2 bg-blue", onclick: ()=>{ updateOffset(offset-1) }}, "<"),
                 ]),
-                m("div", [
+                m("div", { class: "fl w-third" }, [
                     m("div", [
                         m("label", { for: "showing"}, "Showing"),
-                        m("input", { type: "number", value: showing, oninput: (event) => {updateShowing(event.srcElement.value)}})
+                        m("input", { size: 2, type: "number", value: showing, oninput: (event) => {updateShowing(event.srcElement.value)}})
                     ]),
                     m("div", [
                         m("label", { for: "rowsout"}, "Rows Out of"),
-                        m("input", { type: "number", value: rowsVisible, oninput: (event) => {updateRowVisible(event.srcElement.value)} })
+                        m("input", { size: 2, type: "number", value: rowsVisible, oninput: (event) => {updateRowVisible(event.srcElement.value)} })
                     ]),
                     m("div", [
                         m("label", { for: "starting"}, "Starting"),
-                        m("input", { type: "number", value: offset, oninput: (event) => { updateOffset(event.srcElement.value)} })
+                        m("input", { size: 2, type: "number", value: offset, oninput: (event) => { updateOffset(event.srcElement.value)} })
                     ]),
                 ]),
-                m("div", [
-                    m("button",{ onclick: ()=> { updateOffset(offset+1) }}, ">"),
-                    m("button",{ onclick: ()=> { updateOffset(offset+=showing) }}, ">>"),
-                    m("button",{ onclick: ()=> {
-                        updateOffset(data.length - showing)
-                    }}, ">>|"),
+                m("div", { class: "fl w-third" }, [
+                    m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(offset+1) }}, ">"),
+                    m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(offset+=showing) }}, ">>"),
+                    m("button",{ class: "btn br2 bg-blue", onclick: ()=> { updateOffset(data.length - showing) }}, ">>|"),
                 ]),
                 // m("div",[
                 //     m("p",{ innerText: "showing:"+ showing }),
@@ -76,7 +74,7 @@ const table = {
     view: () => {
         return m("div",[
             m("div", header),
-            m("table",[
+            m("table",{style: "border-collapse: collapse"},[
                 m("tr", [
                     m("th", { class: "bg-black-10" }, ""),
                     m("th", { class: "ba bg-black-10" }, "id"),
